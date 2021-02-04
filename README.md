@@ -1,6 +1,10 @@
 # Conrad
 ## A shift scheduling tool
 
+### Try it out
+
+These files should be hosted as they are. You can try it out [here](http://theconrad.atwebpages.com/).
+
 ### What is this? . 
 
 Conrad is a tool that can help you plan the shift distribution scheme for your team, based on a target distribution and a set of restrictions. 
