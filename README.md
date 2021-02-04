@@ -5,7 +5,7 @@
 
 These files should be hosted as they are. You can try it out [here](http://theconrad.atwebpages.com/?restrictions=%5B%5D&agents_text=jperkes%2Clucmatos%2Cjumartinez%2Cgruschka%2Cmanuelreyes&ideal_distribution=1%2C1%2C1%2C1%2C2%2C2%2C2%2C2%2C3%2C3%2C3%2C4%2C4%2C4%2C4%2C3%2C3%2C3%2C3%2C2%2C2%2C2%2C2%2C2&min_agents=1&max_shifts=4&shifts_to_exclude=2%2C3).
 
-### What is this? . 
+### What is this?
 
 Conrad is a tool that can help you plan the shift distribution scheme for your team, based on a target distribution and a set of restrictions. 
 
@@ -19,7 +19,7 @@ We'll go over each of the fields used to set the problem's data.
 
 This field should just include the names (or ldaps, or whatever you like to use as id for your team members) of the team members separated by commas. 
 
-### Target distribution .
+### Target distribution
 
 How do we represent this "target distribution" and what does it mean?
 
@@ -36,11 +36,11 @@ Determining the target distribution is out of the scope of this tool, but we'll 
 
 An integer representing the minimum number of team members during every hour of the day (default is 0). For instance, if you set it to 1, the proposed shift distribution will have at least 1 team member during each hour of the day. This is a restriction on the model and could result in an incompatible system, for instance, if this number is 2 and you have just one team member, there’s no possible solution.
 
- Maximum number of shifts
+### Maximum number of shifts
 
 You might not want to have all your team members working different shifts, a possible solution to this is having at most a specific number of shifts (i.e. the maximum number of shifts). The default value is 24 (every possible shift), you may enter any integer between 1 and 24 in this field. This is a restriction on the model.
 
-### Shifts to exclude .
+### Shifts to exclude
 
 You might also want to exclude some shifts from the calculation (default is no shifts are excluded), for instance you may not want anyone working the second or third shifts, in that case you should enter "2,3" in this field (the number of the excluded shifts, separated by commas). Shift 1 here represents the shift starting at 01.00, Shift 15 starts at 15.00 and so on. All shifts are 9 hours long. This is a restriction on the model.
 
