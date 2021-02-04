@@ -1,0 +1,131 @@
+
+
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Conrad</title>
+		<!-- LOAD BOOTSTRAP -->
+	<link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/2.0/animate.min.css">
+	<link rel="stylesheet" href="css/conrad.css">
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+	<!-- LOAD ANGULAR -->
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular-animate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.1.1/js/bootstrap.min.js"></script>
+	
+	<script src="js/lib/bootstrap-dialog.js"></script>
+	<script src="js/lib/glpk.min.js"></script>
+	<script src="js/conrad.js"></script>
+</head>
+<body ng-app="conrad" ng-controller="conradController">
+	<div class="container">
+		<div class="col-md-6 col-md-offset-3">
+			<div class="page-header">
+				<h1><span class="glyphicon glyphicon-calendar"></span> Conrad</h1>
+				<h4><i>A shift scheduling tool</i></h4>
+			</div>
+			<img src="img/hermes.png" id="hermes_img" alt="hermes"></img>
+			<div class="btn-group" id="upper_toolbar">
+				<span class="btn btn-default btn-file">
+					<input type="file" id="load_file" accept="text/plain"> Load from file
+				</span>
+				<button type="button" class="btn btn-default" ng-click="saveToFile()">Download</button>
+				<button type="button" class="btn btn-default" ng-click="createLink()">Save to URL</button>
+				<button type="button" class="btn btn-default" ng-click="clearModel()">Clear</button>
+				<button type="button" class="btn btn-default" ng-click="showHelpDoc()">Help</button>
+			</div>
+			<br><br><br>
+			<!-- PAGE TITLE -->
+			<div class="tab-content">
+				<!-- FORM -->
+				<form ng-submit="processModel()">
+					<div>
+						<div class="form-group">
+							<label for="agents">Team members</label>
+							<textarea class="form-control" rows="3" ng-model="agents_text" id="agents_text" required></textarea>
+							<span class="help-block"></span>
+						</div>
+					
+						<div class="form-group">
+							<label for="ideal_distribution">Target distribution</label>
+							<input type="text" class="form-control" pattern="\d+(,\d+){23,23}" title="Enter 24 numbers, separated by commas." ng-model="ideal_distribution" id="ideal_distribution" required>
+							<span class="help-block"></span>
+						</div>
+
+						<div class="form-group">
+							<label for="min_agents">Minimum number of team members</label>
+							<input type="number" class="form-control" min="0" ng-model="min_agents" id="min_agents">
+							<span class="help-block"></span>
+						</div>
+
+						<div class="form-group">
+							<label for="max_shifts">Maximum number of shifts</label>
+							<input type="number" class="form-control" min="1" max="24" title="Enter a number between 1 and 24." ng-model="max_shifts" id="max_shifts">
+							<span class="help-block"></span>
+						</div>
+
+						<div class="form-group">
+							<label for="shifts_to_exclude">Shifts to exclude</label>
+							<input type="text" class="form-control" pattern="\d+(,\d+){0,23}" title="Enter up to 24 numbers (between 0 and 23), separated by commas." ng-model="shifts_to_exclude" id="shifts_to_exclude">
+							<span class="help-block"></span>
+						</div>
+
+						
+						<div class="list-group">
+							<label>Team members' restrictions</label>
+							<div ng-repeat="restriction in restrictions" class="list-group-item restriction-group">
+								<span class="close" ng-click="clearRestriction($index)">&times;</span>
+								<div class="restriction-item">
+									<label>Agent ID</label>
+									<select class="form-control" name="agent_id" ng-model="restriction.agent_id" ng-options="agent for agent in agents_text.split(',') | orderBy:sortFunction ">
+										<option value="">-- choose an agent --</option>
+										<span class="help-block"></span>
+									</select>
+								</div>
+								<div class="restriction-item">
+									<label>Shifts</label>
+									<input type="text" class="form-control" pattern="\d+(,\d+){0,23}" title="Enter up to 24 numbers (between 0 and 23), separated by commas." ng-model="restriction.restricted_shifts" required>
+								</div>
+								<div class="btn-group restriction-item" data-toggle="buttons">
+									<input type="radio" id="can_work" value="yes" ng-model="restriction.can_work" checked="checked"> Can work
+								  	<input type="radio" id="cant_work" value="no" ng-model="restriction.can_work"> Can't work
+								</div>
+								<span class="help-block"></span>
+							</div>
+							<button class="btn btn-primary btn-restriction" ng-click="addRestriction()">
+								<span class="glyphicon glyphicon-plus"></span> New restriction
+							</button>
+						</div>
+						<!-- SUBMIT BUTTON -->
+						<button type="submit" id="solve_button" class="btn-success btn-lg btn-block">
+							<span class="glyphicon"></span> Solve
+						</button>
+
+
+						<div class="list-group">
+							<div ng-repeat="message in messages" class="listgroup-item alert my-alert-item alert-{{message.severity}}" style="margin-top:25px">
+								{{message.message_text}}
+							</div>
+						</div>
+						<ul class="nav nav-tabs">
+							<li class="active"><a href="#solution" data-toggle="tab">Solution</a></li>
+							<li><a href="#log" data-toggle="tab">Log</a></li>
+						</ul>
+						<div class="tab-content">
+							<div class="tab-pane fade active in" id="solution">
+								<textarea class="form-control" rows="10" ng-model="output" disabled></textarea>
+							</div>
+							<div class="tab-pane fade" id="log">
+								<textarea class="form-control" rows="10" id="console" ng-model="console" disabled></textarea>
+							</div>
+						</div>
+					</div>	
+				</form>	
+			</div>
+		</div>
+	</div>
+</body>
+</html>
