@@ -1,0 +1,95 @@
+form .line 
+{
+   	margin-bottom: 5px;
+}
+
+#upper_toolbar
+{
+	margin-top:0px;
+	margin-bottom:20px;
+	float:right;
+}
+
+#hermes_img
+{
+	vertical-align:text-bottom;
+}
+
+#cant_work
+{
+	margin-left:10px;
+}
+
+.page-header 
+{
+	display:inline-block;
+	width:76%;
+	
+}
+
+.btn 
+{
+	display:block;
+}
+
+.btn-restriction 
+{
+	margin-bottom: 20px;
+}
+
+.btn-success 
+{
+	margin-bottom: 20px;
+}
+
+.input 
+{
+	display:block;
+}
+
+.btn-group 
+{
+	margin-top: 10px;
+}
+
+.restriction-group 
+{
+	margin-bottom:20px;
+}
+
+.restriction-item 
+{
+	padding-left:10px;
+	padding-right:30px;
+	padding-bottom:5px;
+	padding-top:5px;
+}
+
+.btn-file {
+    position: relative;
+    overflow: hidden;
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 999px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}
+
+.modal-body {
+    word-wrap: break-word;
+}
+
+textarea
+{
+    margin-bottom: 20px;
+}
