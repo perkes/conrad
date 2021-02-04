@@ -3,7 +3,7 @@
 
 ### Try it out
 
-These files should be hosted as they are. You can try it out [here](http://theconrad.atwebpages.com/).
+These files should be hosted as they are. You can try it out [here](http://theconrad.atwebpages.com/?restrictions=%5B%5D&agents_text=jperkes%2Clucmatos%2Cjumartinez%2Cgruschka%2Cmanuelreyes&ideal_distribution=1%2C1%2C1%2C1%2C2%2C2%2C2%2C2%2C3%2C3%2C3%2C4%2C4%2C4%2C4%2C3%2C3%2C3%2C3%2C2%2C2%2C2%2C2%2C2&min_agents=1&max_shifts=4&shifts_to_exclude=2%2C3).
 
 ### What is this? . 
 
